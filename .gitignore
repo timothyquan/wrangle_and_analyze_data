@@ -1,2 +1,15 @@
 *.yaml
 *.docx
+*.aux
+*.fdb_latexmk
+*.log
+*.fls
+*.synctex.gz
+reports/wrangle.aux
+reports/wrangle.log
+reports/wrangle.synctex.gz
+reports/wrangle.log
+reports/wrangle.aux
+reports/wrangle.aux
+reports/wrangle.log
+reports/wrangle.synctex.gz

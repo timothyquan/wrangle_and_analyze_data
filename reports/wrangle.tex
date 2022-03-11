@@ -1,9 +1,69 @@
 
 \documentclass{report}
+\usepackage{array}
+\usepackage{booktabs}
+
 \title{We Rate Dogs: Wrangle Report}
 \date{March 2022}
 \author{Tim Quan}
 \begin{document}
 \maketitle
 \section{Introduction}
+
+In this stage of the project, we gathered/wrangled data from 3 sources:
+\begin{itemize}
+	\item \textbf{twitter\_archive\_enhanced.csv}
+	\item \textbf{image\_predict.tsv}
+	\item Twitter API
+\end{itemize}
+
+\section{Twitter Archive Enhanced \textbf{(twitter\_archive\_enhanced.csv)}}
+
+This is a file provided as a project resource.
+The file was manually downloaded from the provided repository and stored locally.
+
+Through the course of the workbook, this was imported into a Pandas DataFrame and remained in memory.
+
+	\subsection{Assessment}
+	The resulting dataframe contained 2356 rows and 16 columns/variables. Most variables are metadata gleaned from tweets. 
+
+		\subsubsection{Quality Issues, Cleaning & Tidying}
+			\begin{enumerate}
+				\item As imported to dataframe, some columns were interpreted as inappropriate data types. This was resolved by setting 
+				columns to more appropriate data types as follows:\\
+					\begin{tabular}{ll}
+						\textbf{column} & \textbf{adjusted dtype} \\
+						\midrule
+						\textit{tweet}\_id & string \\
+						\textit{timestamp} & datetime \\
+						\textit{source} & category \\
+						\textit{retweeted\_status\_id} & string \\ 
+						\textit{retweeted\_status\_user\_id} & string \\ 
+						\textit{retweeted\_status\_timestamp} & datetime \\    
+					\end{tabular}
+				\item retweeted\_status\_id's can represent self-retweets. This means the retweeted records could be
+					rows of duplicate data. We can identify the duplicate data by comparing the retweet\_status\_id column to the tweet\_id column. 
+					To resolve this, we dropped the rows that contain tweet IDs which are also in the retweet\_status\_ids list.
+				\item The rating scale appears to be inconsistent. There are outliers in this data that need 
+					to be removed for analysis/visualization. There is some division by 0 in the denominators.
+				\item There are tweets in \textbf{twitter\_archive\_enhanced.csv} that do not have corrosponding records in \textbf{image\_.tsv} and vice versa.
+					After merging the tables, these rows were identifiable by entries tweets do not have a value for \textit{jpg\_url}. These rows were dropped.
+				\item The column \textit{source} contains interesting data about devices but is not readable. We parsed the string data from the source column into
+					something human readable and managable, then changed the datatype to category, and finally renamed the column to \textit{source\_device}.
+				\item Columns \textit{doggo, floofer, pupper, puppo} are categorical values of the same variable. We have merged these values into one column of type category. 
+			\end{enumerate} 
+
+\section{Image Prediction (\textbf{image\_predict.tsv})}
+
+This remote file location was provided in the project instructions.  It (the file) was downloaded programatically and stored locally. 
+This delimited dataset contained both metadata with additional data added by the course authors. 
+
+The data was ingested into a Pandas DataFrame for assement and use.
+
+	\subsection{Assessment}
+	The images from tweets in the dataset were run through a predictive image neural network; 
+	the results are the 3 most likely detected breed of dog (or, in some cases random object), and the p-values associated with the likelihood of correctness of the predictions.
+
+			
+
 \end{document}
