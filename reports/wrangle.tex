@@ -2,36 +2,48 @@
 \documentclass{report}
 \usepackage{array}
 \usepackage{booktabs}
+\usepackage{graphicx} 
 
-\title{We Rate Dogs: Wrangle Report}
+
+\title{\includegraphics[width=2cm]{udacity-logo.png}\\We Rate Dogs: Wrangle Report}
 \date{March 2022}
-\author{Tim Quan}
+\author{Tim Quan\\ \\ 
+	\textit{\textbf{Udacity}: Data Analyst Nanodegree Program}\\ 
+	\textit{\textbf{Project 03}: Wrangle and Analyze Data}}
+
+
+
 \begin{document}
 \maketitle
+
+
+
+
 \section{Introduction}
 
 In this stage of the project, we gathered/wrangled data from 3 sources:
 \begin{itemize}
 	\item \textbf{twitter\_archive\_enhanced.csv}
-	\item \textbf{image\_predict.tsv}
+	\item \textbf{image\_predictions.tsv}
 	\item Twitter API
 \end{itemize}
 
-\section{Twitter Archive Enhanced \textbf{(twitter\_archive\_enhanced.csv)}}
+\section{Twitter Archive Enhanced \textbf{(twitter\_archive\_enhanced.csv), }\textbf{df\_archive\_en}}
 
 This is a file provided as a project resource.
-The file was manually downloaded from the provided repository and stored locally.
+The file was manually downloaded from the repository and stored locally.
 
-Through the course of the workbook, this was imported into a Pandas DataFrame and remained in memory.
+For use in this project the file was imported into a Pandas DataFrame, \textbf{df\_archive\_en}.
 
 	\subsection{Assessment}
 	The resulting dataframe contained 2356 rows and 16 columns/variables. Most variables are metadata gleaned from tweets. 
 
-		\subsubsection{Quality Issues, Cleaning & Tidying}
+		\subsubsection{Quality Issues, Cleaning \& Tidying}
 			\begin{enumerate}
 				\item As imported to dataframe, some columns were interpreted as inappropriate data types. This was resolved by setting 
 				columns to more appropriate data types as follows:\\
 					\begin{tabular}{ll}
+						\toprule
 						\textbf{column} & \textbf{adjusted dtype} \\
 						\midrule
 						\textit{tweet}\_id & string \\
@@ -41,7 +53,7 @@ Through the course of the workbook, this was imported into a Pandas DataFrame an
 						\textit{retweeted\_status\_user\_id} & string \\ 
 						\textit{retweeted\_status\_timestamp} & datetime \\    
 					\end{tabular}
-				\item retweeted\_status\_id's can represent self-retweets. This means the retweeted records could be
+				\item \textit{retweeted\_status\_id}'s can represent self-retweets. This means the retweeted records could be
 					rows of duplicate data. We can identify the duplicate data by comparing the retweet\_status\_id column to the tweet\_id column. 
 					To resolve this, we dropped the rows that contain tweet IDs which are also in the retweet\_status\_ids list.
 				\item The rating scale appears to be inconsistent. There are outliers in this data that need 
@@ -53,17 +65,83 @@ Through the course of the workbook, this was imported into a Pandas DataFrame an
 				\item Columns \textit{doggo, floofer, pupper, puppo} are categorical values of the same variable. We have merged these values into one column of type category. 
 			\end{enumerate} 
 
-\section{Image Prediction (\textbf{image\_predict.tsv})}
+\section{Image Prediction (\textbf{image\_predictions.tsv})}
 
 This remote file location was provided in the project instructions.  It (the file) was downloaded programatically and stored locally. 
-This delimited dataset contained both metadata with additional data added by the course authors. 
 
 The data was ingested into a Pandas DataFrame for assement and use.
 
 	\subsection{Assessment}
+	The resulting dataframe contained 2075 rows, 12 columns/variables. This delimited dataset contained both metadata and additional data added by the course authors. 
+
 	The images from tweets in the dataset were run through a predictive image neural network; 
 	the results are the 3 most likely detected breed of dog (or, in some cases random object), and the p-values associated with the likelihood of correctness of the predictions.
 
-			
+		\subsubsection{Quality Issues, Cleaning \& Tidying}
+			\begin{enumerate}
+				\item As imported to dataframe, one column was  interpreted as an inappropriate data type. This was resolved by setting 
+				the column to more appropriate data type as follows:\\
+					\begin{tabular}{ll}
+						\toprule
+						\textbf{column} & \textbf{adjusted dtype} \\
+						\midrule
+						\textit{tweet\_id} & string \\
+					\end{tabular}
+				\item There appear to be 66 duplicate images/image predictions, these can be identified by \textit{jpg\_url}.
+				By identifying duplicate \textit{jpg\_url}, a list of duplicate tweet IDs was gleaned and dropped.
+				\item There are 324 records where no dogs were detected whatsoever. These records were dropped.
+				\item There are 3 separate predictions for each dog photo. The dog prediction columns could use meaningful names. We 
+				took the most likely of p1, p2, p3, moved it to a new column, \textit{predicted\_breed}, and drop the others. Also we can drop \textit{p1\_dog} because know all are 
+				suspected to be dogs now. Rename:\\
+					\begin{tabular}{ll}
+						\toprule
+						\textbf{original column name} & \textbf{new column name} \\
+						\midrule
+						\textit{p1} & \textit{breed\_prediction}  \\
+						\textit{p\_conf} & \textit{prediction\_confidence}  \\						
+					\end{tabular}
+			\end{enumerate}
+
+\section{Twitter API (\textbf{json\_dicts.txt})}
+
+As instructed in the project description, we used Tweetpy to access the twitter API. 
+
+The first step in this process was gaining Twitter API access. The first level of developer access was trivial to apply for and obtain; I was able to use the 'explanation' recommended 
+in \textbf{Additional Resource: Twitter API}, verbatim, in the application and it was granted immediately. However, some of the methods tweepy uses to lookup tweets
+ - namely tweepy.getstatus - requires elevated API access. For this level of access, it would appear there is a human making approvals. At first I attempted just resubmitting the same description,
+but over the course of a day and several attempts, it became evident that a fairly detailed project proposal was required. Because the stakes at the time appeared to include being able to complete
+the nanodegree, and the process resulted in my account being suspended for suspicious activity for several hours, it was surprisingly stressful process, but after a day of persistence we had success.
+
+	\subsection{Gathering via the Twitter API}
+	Roughly, these were the steps and some notable details of gathering tweet metadata via API:
+		\begin{itemize}
+			\item Initialize a tweepy API instance using the new developer keys. 
+				\subitem Because these credentials are private, this project is using a basic yaml 'config' file to store/retrieve as required,
+				which (the yaml) will be omited from git and submission.
+				In the init, the wait\_on\_rate\_limit\_notify parameter was important in order to handle the API limits.
+			\item Iterate over over all the \textit{tweet\_id}s in \textbf{(twitter\_archive\_enhanced.csv)}, run the get\_status method against each. This takes about 20 minutes in total, including
+			waiting for API limits. 
+			\item Write the list of dicts to a local file, \textbf{json\_dicts.txt}. This gives us some flexibility in terms of being able to avoid the long wait of the previous iteration process 
+			when we need to run all cells.
+			\item Re-read the data from  \textbf{json\_dicts.txt} into a dataframe using column/variables \textit{id, retweet\_count, favorite\_count} only.
+		\end{itemize}
+	\subsubsection{Quality Issues, Cleaning \& Tidying}
+		\begin{itemize}
+			\item While there were up to 30 records that failed to be imported by API, this data came out relatively clean. The issues of missing records we were able to mitigate the issue of missing records by using an 
+			inner join when creating \textbf{df\_master}.
+
+		\end{itemize} 
+
+\section{Master Dataset (\textbf{twitter\_archive\_master.csv}, \textbf{df\_master})}
+	\subsubsection{Quality Issues, Cleaning \& Tidying}
+	As a cleaning and tidying issue relating to all 3 datasets, we have merged them into one DataFrame; \textbf{df\_master}. The records were joined on column \textit{tweet\_id}.
+
+	The DataFrame was then saved locally to  \textbf{twitter\_archive\_master.csv'}. \\ \\ 
+
+
+	This (the creation of our new master dataset CSV) was the final step and concludes the wrangling and cleaning processes. 
+	We now have a clean and organized dataset stored in \textbf{twitter\_archive\_master.csv} which can be imported back into DataFrame for
+	further analysis. 
+
 
 \end{document}
