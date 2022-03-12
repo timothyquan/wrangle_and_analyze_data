@@ -11,7 +11,7 @@
 \usepackage{geometry}
  \geometry{
  a4paper,
- total={170mm,227mm},
+ total={170mm,220mm},
  left=20mm,
  right=20mm,
  top=20mm,
@@ -46,33 +46,40 @@
                 \includegraphics[width=0.5\textwidth]{pairwise.jpg}            
                 \caption{Retweet Count v. Favorite Count}
               \end{figure}
-            \item Of the dog category/type, doggo and puppo records sufficient p-values to indicate that they have an impact rating; floofers and puppers do not.
-            We were able to establish this using linear regression.
+            \item Using a linear regression model on the dog category/type variables with a result of rating, doggo and puppo records had sufficient p-values to indicate that they have an impact; floofers and puppers do not.            
             \item The top 5 rated dogs (as detected) were pomeranian, Samoyed, golden retriever, kuvasz, great pyrenees, in that order. This rank order was limited to 
             breeds that had a minimum of 10 ratings to avoid being skewed by outliers/one off ratings.
         \end{itemize}
     \section{Visualizations}
-        \begin{figure}[htb]
-            \centering
-            \includegraphics[width=1\textwidth]{scatter-retweets-favorites.jpg}            
-            \caption{Retweet Count v. Favorite Count \\ Both charts follow the same pattern illustrating the possibility of
-            multicollinarity.\\\url{https://github.com/timothyquan/wrangle_and_analyze_data/blob/main/reports/scatter-retweets-favorites.jpg} }            
-        \end{figure}
-        \begin{figure}[htb]
-            \centering
-            \includegraphics[width=0.65\textwidth]{source\_device\_breakdown.jpg}      
-            \caption{Source device breakdown \\\url{https://github.com/timothyquan/wrangle_and_analyze_data/blob/main/reports/source_device_breakdown.jpg} }            
-        \end{figure}
-        \begin{figure}[htb]
-            \centering
-            \includegraphics[width=0.65\textwidth]{dogcloud.jpg}      
-            \caption{Source device breakdown \\\url{https://github.com/timothyquan/wrangle_and_analyze_data/blob/main/reports/source_device_breakdown.jpg} }            
-        \end{figure}
-        \begin{figure}[htb]
-            \centering
-            \includegraphics[width=0.65\textwidth]{dogcloud.jpg}      
-            \caption{Source device breakdown \\\url{https://github.com/timothyquan/wrangle_and_analyze_data/blob/main/reports/source_device_breakdown.jpg} }            
-        \end{figure}
-
+        \begin{itemize}
+            \item Here are scatter charts showing the relationships between favorite counts, retweet counts, and ratings.
+                \begin{figure}[h]
+                    \centering
+                    \includegraphics[width=1\textwidth]{scatter-retweets-favorites.jpg}            
+                    \caption{Retweet Count v. Favorite Count \\ Both charts follow the same pattern illustrating the possibility of
+                    multicollinarity.\\\url{https://github.com/timothyquan/wrangle_and_analyze_data/blob/main/reports/scatter-retweets-favorites.jpg} }            
+                \end{figure}
+            \item It seemed that the source device would be interesting, but after this pie graph illustrating the source device breakdown was generated,
+            it became apparent that the 'We Rate Dogs' account was run almost exclusively on an iphone: 
+                \begin{figure}[h]
+                    \centering
+                    \includegraphics[width=0.65\textwidth]{source\_device\_breakdown.jpg}      
+                    \caption{Source device breakdown \\\url{https://github.com/timothyquan/wrangle_and_analyze_data/blob/main/reports/source_device_breakdown.jpg} }            
+                \end{figure} 
+            \item Here's a wordcloud; it was a fun little process figuring this out. It turned out a fairly attractive image. \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ 
+                \begin{figure}[h]
+                    \centering
+                    \includegraphics[width=0.65\textwidth]{dogcloud.jpg}      
+                    \caption{A beautiful dog wordcloud. \\\url{https://github.com/timothyquan/wrangle_and_analyze_data/blob/main/reports/dogcloud.jpg} }            
+                \end{figure}
+            \item This one turned out great; a high-res dogsaic. Most of the heavy lifting was already done in terms of image generation code goes, but this was
+            fairly time consuming to retrieve all 1600+ images and tweek the code to make it come out nicely.
+                \begin{figure}[h]
+                    \centering
+                    \includegraphics[width=0.65\textwidth]{dogsaic.jpg}      
+                    \caption{A mosaic generated from the images in the collection.\\\url{https://github.com/timothyquan/wrangle_and_analyze_data/blob/main/reports/dogsaic.jpg}  \\
+                    \textit{Credit to \url{https://towardsdatascience.com/how-to-create-a-photo-mosaic-in-python-45c94f6e8308} for most of the code required} }            
+                \end{figure}
+        \end{itemize}
 
 \end{document}
