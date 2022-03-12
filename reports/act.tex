@@ -7,14 +7,14 @@
 \usepackage{amsfonts}
 \usepackage{amssymb}
 \usepackage{graphicx}
-
-
+\usepackage{hyperref}
 
 \title{\includegraphics[width=2cm]{udacity-logo.png}\\We Rate Dogs: Act Report}
 \date{March 2022}
 \author{Tim Quan\\ \\ 
 	\textit{\textbf{Udacity}: Data Analyst Nanodegree Program}\\ 
 	\textit{\textbf{Project 03}: Wrangle and Analyze Data}}
+
 
 
 
@@ -28,12 +28,13 @@
 
     \section{Insights}
         \begin{itemize}
+
             \item Both favorite count and retweet count have a positive correlation with rating. We were able to establish this using OLS linear regression. 
             The associated p-values for both parameters were 0. It is likely that there is a pairwise relationship/multicollinarity between the two. We
             were able to visualize the pairwise relationship using the seaborn module.
             \begin{figure}[h]
                 \centering
-                \includegraphics[width=0.5\textwidth]{../pairwise.jpg}            
+                \includegraphics[width=0.5\textwidth]{pairwise.jpg}            
                 \caption{Retweet Count v. Favorite Count}
               \end{figure}
             \item Of the dog category/type, doggo and puppo records sufficient p-values to indicate that they have an impact rating; floofers and puppers do not.
@@ -42,16 +43,19 @@
             breeds that had a minimum of 10 ratings to avoid being skewed by outliers/one off ratings.
         \end{itemize}
     \section{Visualizations}
-        \begin{itemize}
-            \item
-                \begin{figure}[h]
-                    \centering
-                    \includegraphics[width=1\textwidth]{scatter-retweets-favorites.jpg}            
-                    \caption{Retweet Count v. Favorite Count}
-                \end{figure}
+        \begin{figure}[h]
+            \centering
+            \includegraphics[width=1\textwidth]{scatter-retweets-favorites.jpg}            
+            \caption{Retweet Count v. Favorite Count \\ Both charts follow the same pattern illustrating the possibility of
+            multicollinarity.\\\url{https://github.com/timothyquan/wrangle_and_analyze_data/blob/main/reports/scatter-retweets-favorites.jpg} }            
+        \end{figure}
+        \begin{figure}[h]
+            \centering
+            \includegraphics[width=1\textwidth]{source\_device\_breakdown.jpg}            
 
-        \end{itemize}
-
+            \caption{Retweet Count v. Favorite Count \\ Both charts follow the same pattern illustrating the possibility of
+            multicollinarity.\\\url{https://github.com/timothyquan/wrangle_and_analyze_data/blob/main/reports/scatter-retweets-favorites.jpg} }            
+        \end{figure}
 
 
 \end{document}
