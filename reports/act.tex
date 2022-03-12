@@ -8,6 +8,15 @@
 \usepackage{amssymb}
 \usepackage{graphicx}
 \usepackage{hyperref}
+\usepackage{geometry}
+ \geometry{
+ a4paper,
+ total={170mm,227mm},
+ left=20mm,
+ right=20mm,
+ top=20mm,
+ bottom=20mm
+ }
 
 \title{\includegraphics[width=2cm]{udacity-logo.png}\\We Rate Dogs: Act Report}
 \date{March 2022}
@@ -32,7 +41,7 @@
             \item Both favorite count and retweet count have a positive correlation with rating. We were able to establish this using OLS linear regression. 
             The associated p-values for both parameters were 0. It is likely that there is a pairwise relationship/multicollinarity between the two. We
             were able to visualize the pairwise relationship using the seaborn module.
-            \begin{figure}[h]
+            \begin{figure}[htb]
                 \centering
                 \includegraphics[width=0.5\textwidth]{pairwise.jpg}            
                 \caption{Retweet Count v. Favorite Count}
@@ -43,18 +52,26 @@
             breeds that had a minimum of 10 ratings to avoid being skewed by outliers/one off ratings.
         \end{itemize}
     \section{Visualizations}
-        \begin{figure}[h]
+        \begin{figure}[htb]
             \centering
             \includegraphics[width=1\textwidth]{scatter-retweets-favorites.jpg}            
             \caption{Retweet Count v. Favorite Count \\ Both charts follow the same pattern illustrating the possibility of
             multicollinarity.\\\url{https://github.com/timothyquan/wrangle_and_analyze_data/blob/main/reports/scatter-retweets-favorites.jpg} }            
         \end{figure}
-        \begin{figure}[h]
+        \begin{figure}[htb]
             \centering
-            \includegraphics[width=1\textwidth]{source\_device\_breakdown.jpg}            
-
-            \caption{Retweet Count v. Favorite Count \\ Both charts follow the same pattern illustrating the possibility of
-            multicollinarity.\\\url{https://github.com/timothyquan/wrangle_and_analyze_data/blob/main/reports/scatter-retweets-favorites.jpg} }            
+            \includegraphics[width=0.65\textwidth]{source\_device\_breakdown.jpg}      
+            \caption{Source device breakdown \\\url{https://github.com/timothyquan/wrangle_and_analyze_data/blob/main/reports/source_device_breakdown.jpg} }            
+        \end{figure}
+        \begin{figure}[htb]
+            \centering
+            \includegraphics[width=0.65\textwidth]{dogcloud.jpg}      
+            \caption{Source device breakdown \\\url{https://github.com/timothyquan/wrangle_and_analyze_data/blob/main/reports/source_device_breakdown.jpg} }            
+        \end{figure}
+        \begin{figure}[htb]
+            \centering
+            \includegraphics[width=0.65\textwidth]{dogcloud.jpg}      
+            \caption{Source device breakdown \\\url{https://github.com/timothyquan/wrangle_and_analyze_data/blob/main/reports/source_device_breakdown.jpg} }            
         \end{figure}
 
 
