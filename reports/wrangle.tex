@@ -57,15 +57,19 @@ For use in this project the file was imported into a Pandas DataFrame, \textbf{d
 						\textit{source} & category \\
 						\textit{retweeted\_status\_id} & string \\ 
 						\textit{retweeted\_status\_user\_id} & string \\ 
-						\textit{retweeted\_status\_timestamp} & datetime \\    
+						\textit{retweeted\_status\_timestamp} & datetime \\  
+						\textit{rating\_numerator} & float \\
+						\textit{rating\_denominator} & float \\
+
 					\end{tabular}
 				\item \textit{retweeted\_status\_id}'s can represent self-retweets. This means the retweeted records could be
 					rows of duplicate data. We can identify the duplicate data by comparing the retweet\_status\_id column to the tweet\_id column. 
 					To resolve this, we dropped the rows that contain tweet IDs which are also in the retweet\_status\_ids list.
 				\item The rating scale appears to be inconsistent. There are outliers in this data that need 
-					to be removed for analysis/visualization. There is some division by 0 in the denominators.
+					to be removed for analysis/visualization. There is some division by 0 in the denominators. Ratings that contained
+					a decimal place were not parsed correctly.
 				\item There are tweets in \textbf{twitter\_archive\_enhanced.csv} that do not have corrosponding records in \textbf{image\_.tsv} and vice versa.
-					After merging the tables, these rows were identifiable by entries tweets do not have a value for \textit{jpg\_url}. These rows were dropped.
+					After merging the tables, these rows were identifiable by tweets that do not have a value for \textit{jpg\_url}. These rows were dropped.
 				\item The column \textit{source} contains interesting data about devices but is not readable. We parsed the string data from the source column into
 					something human readable and managable, then changed the datatype to category, and finally renamed the column to \textit{source\_device}.
 				\item Columns \textit{doggo, floofer, pupper, puppo} are categorical values of the same variable. We have merged these values into one column of type category. 
@@ -142,7 +146,7 @@ the nanodegree, and the process resulted in my account being suspended for suspi
 	\subsubsection{Quality Issues, Cleaning \& Tidying}
 	As a cleaning and tidying issue relating to all 3 datasets, we have merged them into one DataFrame; \textbf{df\_master}. The records were joined on column \textit{tweet\_id}.
 
-	The DataFrame was then saved locally to  \textbf{twitter\_archive\_master.csv'}. \\ \\ 
+	The DataFrame was then saved locally to  \textbf{twitter\_archive\_master.csv}. \\ \\ 
 
 
 	This (the creation of our new master dataset CSV) was the final step and concludes the wrangling and cleaning processes. 
