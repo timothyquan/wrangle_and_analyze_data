@@ -14,3 +14,5 @@ reports/wrangle.aux
 reports/wrangle.log
 reports/wrangle.synctex.gz
 dog_pics/*.jpg
+.ipynb_checkpoints/wrangle_act-checkpoint.ipynb
+/.vscode/
