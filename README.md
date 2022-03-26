@@ -11,8 +11,8 @@ The project consists of 3 primary stages;
 - Data Gathering and Wrangling (wrangle_act.ipynb)
 - Analyzing and Visualizing Data (wrangle_act.ipynb)
 - Reporting:
-  - wrangle_report.pdf
-  - act_report.pdf
+  - [wrangle_report.pdf](https://github.com/timothyquan/wrangle_and_analyze_data/blob/main/reports/wrangle_report.pdf)
+  - [act_report.pdf](https://github.com/timothyquan/wrangle_and_analyze_data/blob/main/reports/act_report.pdf)
 
 ## Data Gathering and Wrangling
 
@@ -35,7 +35,8 @@ I was able to learn some new techniques to generate some very entertaining visua
 ## Reporting
 
 I took this opporunity to take a short course in LaTeX and employ my new knowledge on the generation of two reports:
-    - wrangle_report.pdf
-    - act_report.pdf
+
+- [wrangle_report.pdf](https://github.com/timothyquan/wrangle_and_analyze_data/blob/main/reports/wrangle_report.pdf)
+- [act_report.pdf](https://github.com/timothyquan/wrangle_and_analyze_data/blob/main/reports/act_report.pdf)
 
 While outside of the scope of the rubric for this project, learning a bit and using LaTeX was a fulfilling exercise in itself.
